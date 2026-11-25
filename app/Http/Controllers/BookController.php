@@ -38,6 +38,28 @@ class BookController extends Controller
         return view('catalog.index', compact('books', 'categories', 'filters'));
     }
 
+    public function show(Book $book)
+    {
+        $book->load('category');
+
+        // Stok yang bisa diajukan = stok di rak dikurangi pengajuan yang menunggu diambil
+        $pending = $book->isPhysical() ? $book->pendingLoansCount() : 0;
+        $borrowable = $book->isPhysical()
+            ? max(0, $book->stock_available - $pending)
+            : 0;
+
+        $canRead = $book->hasPdf();
+
+        $related = Book::with('category')
+            ->where('category_id', $book->category_id)
+            ->whereKeyNot($book->id)
+            ->latest()
+            ->take(4)
+            ->get();
+
+        return view('books.show', compact('book', 'pending', 'borrowable', 'canRead', 'related'));
+    }
+
     /**
      * Ambil parameter query sebagai string. Jika bukan string
      * (misalnya ?q[]=x), kembalikan string kosong.

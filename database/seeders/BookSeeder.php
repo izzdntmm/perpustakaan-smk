@@ -142,5 +142,9 @@ class BookSeeder extends Seeder
             'laskar-pelangi',
             'bahasa-indonesia-kelas-xi',
         ])->update(['is_featured' => true]);
+
+        // File PDF contoh untuk semua buku digital
+        Book::where('type', BookType::Digital->value)
+            ->update(['pdf_path' => 'books/contoh.pdf']);
     }
 }

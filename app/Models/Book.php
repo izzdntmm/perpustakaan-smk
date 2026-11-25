@@ -149,6 +149,13 @@ class Book extends Model
             : null;
     }
 
+    public function hasPdf(): bool
+    {
+        return $this->isDigital()
+            && filled($this->pdf_path)
+            && Storage::disk('local')->exists($this->pdf_path);
+    }
+
     /**
      * Jumlah pengajuan yang masih menunggu diambil.
      */

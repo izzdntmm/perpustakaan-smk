@@ -11,10 +11,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Loan extends Model
 {
     protected $fillable = [
-        'book_id', 'borrower_name', 'borrower_class',
-        'status', 'source',
-        'loan_date', 'duration_days', 'due_date',
-        'borrowed_at', 'returned_at', 'notes',
+        'book_id',
+        'borrower_name',
+        'borrower_class',
+        'status',
+        'source',
+        'loan_date',
+        'duration_days',
+        'due_date',
+        'borrowed_at',
+        'returned_at',
+        'notes',
     ];
 
     protected function casts(): array
@@ -56,8 +63,8 @@ class Loan extends Model
     public function scopeOverdue(Builder $query): Builder
     {
         return $query->where('status', LoanStatus::Borrowed)
-                     ->whereNotNull('due_date')
-                     ->whereDate('due_date', '<', today());
+            ->whereNotNull('due_date')
+            ->whereDate('due_date', '<', today());
     }
 
     /* ---------- Helper ---------- */
@@ -72,5 +79,13 @@ class Loan extends Model
     public function daysOverdue(): int
     {
         return $this->isOverdue() ? (int) $this->due_date->diffInDays(today()) : 0;
+    }
+
+    public const DURATIONS = [3, 7, 14];
+    public const DEFAULT_DURATION = 7;
+
+    public function code(): string
+    {
+        return sprintf('PJ-%05d', $this->id);
     }
 }
