@@ -91,14 +91,22 @@ class Book extends Model
 
     public function scopeSearch(Builder $query, ?string $term): Builder
     {
-        if (blank($term)) {
-            return $query;
+        // Pecah jadi kata-kata (maks. 5). Setiap kata harus cocok
+        // di judul ATAU penulis, sehingga urutan kata tidak penting.
+        $words = collect(preg_split('/\s+/', trim((string) $term), -1, PREG_SPLIT_NO_EMPTY))
+            ->take(5);
+
+        foreach ($words as $word) {
+            // Escape karakter wildcard agar "50%" atau "a_b" dicari apa adanya
+            $like = '%' . addcslashes($word, '\\%_') . '%';
+
+            $query->where(function (Builder $q) use ($like) {
+                $q->where('title', 'like', $like)
+                    ->orWhere('author', 'like', $like);
+            });
         }
 
-        return $query->where(function (Builder $q) use ($term) {
-            $q->where('title', 'like', "%{$term}%")
-                ->orWhere('author', 'like', "%{$term}%");
-        });
+        return $query;
     }
 
     public function scopeFeatured(Builder $query): Builder
