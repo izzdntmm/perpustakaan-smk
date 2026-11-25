@@ -1,19 +1,16 @@
-<footer class="bg-neutral text-neutral-content">
-    <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <div class="flex items-center gap-2">
-            @svg('heroicon-o-building-library', 'size-5')
-            <span>Perpustakaan SMK Roudlotul Mubtadiin</span>
+<footer class="border-t border-base-300 bg-base-100">
+    <x-container class="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-center gap-3">
+            @svg('heroicon-o-book-open', 'size-7 shrink-0 text-primary')
+            <span class="leading-tight">
+                <span class="block font-heading text-sm font-bold text-neutral">Perpustakaan</span>
+                <span class="block text-xs text-base-content/70">SMK Roudlotul Mubtadiin</span>
+            </span>
         </div>
 
-        <div class="flex items-center gap-4">
-            <span class="opacity-70">&copy; {{ now()->year }}</span>
-
-            @if (Route::has('admin.login'))
-                <a href="{{ route('admin.login') }}" class="link link-hover inline-flex items-center gap-1">
-                    @svg('heroicon-o-lock-closed', 'size-4')
-                    Login Pustakawan
-                </a>
-            @endif
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-base-content/70">
+            <span>&copy; {{ now()->year }} Perpustakaan SMK Roudlotul Mubtadiin</span>
+            <a href="{{ Route::has('admin.login') ? route('admin.login') : '#' }}" class="hover:text-primary">Administrator</a>
         </div>
-    </div>
+    </x-container>
 </footer>

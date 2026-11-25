@@ -135,5 +135,12 @@ class BookSeeder extends Seeder
                 ]
             );
         }
+        // Buku rekomendasi pustakawan (contoh)
+        Book::whereIn('slug', [
+            'pemrograman-web-dasar',
+            'desain-grafis-untuk-pemula-e-book',
+            'laskar-pelangi',
+            'bahasa-indonesia-kelas-xi',
+        ])->update(['is_featured' => true]);
     }
 }

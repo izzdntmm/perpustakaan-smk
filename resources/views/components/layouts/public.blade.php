@@ -5,12 +5,15 @@
 <head>
     @include('partials.head', ['title' => $title])
 </head>
-<body class="flex min-h-screen flex-col bg-base-200 text-base-content">
+<body class="flex min-h-screen flex-col bg-base-100 text-base-content antialiased">
 
     <x-public.navbar />
 
-    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">
-        <x-alert />
+    <main class="flex-1">
+        <x-container class="pt-4">
+            <x-alert />
+        </x-container>
+
         {{ $slot }}
     </main>
 

@@ -1,15 +1,12 @@
 <?php
 
-use App\Models\Book;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
 use App\Models\Loan;
 use Illuminate\Support\Facades\Route;
 
-// SEMENTARA: dipindahkan ke controller di Part 7
-Route::get('/', function () {
-    $books = Book::with('category')->latest()->get();
-
-    return view('home', compact('books'));
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/katalog', [BookController::class, 'index'])->name('catalog');
 
 // SEMENTARA: dihapus di Part 12
 Route::get('/admin-preview', function () {

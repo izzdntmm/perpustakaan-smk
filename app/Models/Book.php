@@ -14,10 +14,21 @@ use Illuminate\Support\Str;
 class Book extends Model
 {
     protected $fillable = [
-        'category_id', 'title', 'slug', 'author', 'publisher',
-        'year_published', 'isbn', 'synopsis', 'cover_path',
-        'type', 'pdf_path', 'stock_total', 'stock_available',
+        'category_id',
+        'title',
+        'slug',
+        'author',
+        'publisher',
+        'year_published',
+        'isbn',
+        'synopsis',
+        'cover_path',
+        'type',
+        'pdf_path',
+        'stock_total',
+        'stock_available',
         'shelf_location',
+        'is_featured',
     ];
 
     protected function casts(): array
@@ -27,6 +38,7 @@ class Book extends Model
             'year_published' => 'integer',
             'stock_total' => 'integer',
             'stock_available' => 'integer',
+            'is_featured' => 'boolean',
         ];
     }
 
@@ -35,7 +47,7 @@ class Book extends Model
     protected static function booted(): void
     {
         static::saving(function (Book $book) {
-            if (empty($book->slug) || $book->isDirty('title') && ! $book->isDirty('slug')) {
+            if (empty($book->slug) || $book->isDirty('title') && !$book->isDirty('slug')) {
                 $book->slug = static::makeUniqueSlug($book->title, $book->id);
             }
         });
@@ -47,10 +59,12 @@ class Book extends Model
         $slug = $base;
         $i = 2;
 
-        while (static::where('slug', $slug)
-            ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
-            ->exists()) {
-            $slug = $base.'-'.$i++;
+        while (
+            static::where('slug', $slug)
+                ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+                ->exists()
+        ) {
+            $slug = $base . '-' . $i++;
         }
 
         return $slug;
@@ -83,8 +97,13 @@ class Book extends Model
 
         return $query->where(function (Builder $q) use ($term) {
             $q->where('title', 'like', "%{$term}%")
-              ->orWhere('author', 'like', "%{$term}%");
+                ->orWhere('author', 'like', "%{$term}%");
         });
+    }
+
+    public function scopeFeatured(Builder $query): Builder
+    {
+        return $query->where('is_featured', true);
     }
 
     public function scopeOfType(Builder $query, ?string $type): Builder
@@ -100,7 +119,7 @@ class Book extends Model
             return $query;
         }
 
-        return $query->whereHas('category', fn (Builder $q) => $q->where('slug', $categorySlug));
+        return $query->whereHas('category', fn(Builder $q) => $q->where('slug', $categorySlug));
     }
 
     /* ---------- Helper ---------- */
@@ -135,7 +154,7 @@ class Book extends Model
      */
     public function borrowableStock(): int
     {
-        if (! $this->isPhysical()) {
+        if (!$this->isPhysical()) {
             return 0;
         }
 
