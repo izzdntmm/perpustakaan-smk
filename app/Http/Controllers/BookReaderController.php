@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 
 class BookReaderController extends Controller
 {
@@ -28,9 +29,15 @@ class BookReaderController extends Controller
      * Mengalirkan file PDF dari penyimpanan privat.
      * Hanya bisa diakses dengan link bertanda tangan yang masih berlaku.
      */
-    public function pdf(Book $book)
+    public function pdf(Request $request, Book $book)
     {
         abort_unless($book->hasPdf(), 404);
+
+        // Hanya pembaca yang boleh memuat file. Jika tautan dibuka langsung
+        // di tab browser, arahkan ke halaman pembaca (bukan mengunduh).
+        if (!$request->hasHeader('X-Pdf-Reader')) {
+            return redirect()->route('books.read', $book);
+        }
 
         $response = response()->file(Storage::disk('local')->path($book->pdf_path), [
             'Content-Type' => 'application/pdf',
