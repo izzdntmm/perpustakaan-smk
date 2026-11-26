@@ -7,6 +7,7 @@ use App\Http\Controllers\BookReaderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoanController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BookController as AdminBookController;
 
 /* ---------- Publik ---------- */
 
@@ -42,7 +43,15 @@ Route::prefix('admin')->name('admin.')->middleware('no.store')->group(function (
         Route::post('logout', [AuthController::class, 'destroy'])->name('logout');
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        // Part 14 sampai 17 menambah route di sini:
-        // admin.books.*, admin.loans.*, admin.returns.*, admin.reports.*
+        // Katalog buku
+        Route::patch('buku/{book}/rekomendasi', [AdminBookController::class, 'toggleFeatured'])
+            ->name('books.featured');
+        Route::resource('buku', AdminBookController::class)
+            ->names('books')
+            ->parameters(['buku' => 'book'])
+            ->except('show');
+
+        // Part 15 sampai 17 menambah route di sini:
+        // admin.loans.*, admin.returns.*, admin.reports.*
     });
 });

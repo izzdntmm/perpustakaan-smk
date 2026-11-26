@@ -32,4 +32,9 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->with('error', 'Sesi halaman sudah habis. Silakan ulangi.');
             }
         });
+                // Berkas melebihi batas server: kembali ke form dengan pesan ramah
+        $exceptions->render(function (\Illuminate\Http\Exceptions\PostTooLargeException $e, Request $request) {
+            return redirect()->back()
+                ->with('error', 'Ukuran berkas melebihi batas server. Gunakan sampul maksimal 2 MB dan PDF maksimal 30 MB.');
+        });
     })->create();
