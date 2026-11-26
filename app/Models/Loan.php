@@ -67,6 +67,32 @@ class Loan extends Model
             ->whereDate('due_date', '<', today());
     }
 
+    public function scopeSearch(Builder $query, ?string $term): Builder
+    {
+        $term = trim((string) $term);
+
+        if ($term === '') {
+            return $query;
+        }
+
+        // Kode pengajuan, misalnya PJ-00012
+        if (preg_match('/^PJ-?0*(\d+)$/i', $term, $m)) {
+            return $query->whereKey((int) $m[1]);
+        }
+
+        foreach (collect(preg_split('/\s+/', $term, -1, PREG_SPLIT_NO_EMPTY))->take(5) as $word) {
+            $like = '%' . addcslashes($word, '\\%_') . '%';
+
+            $query->where(function (Builder $q) use ($like) {
+                $q->where('borrower_name', 'like', $like)
+                    ->orWhere('borrower_class', 'like', $like)
+                    ->orWhereHas('book', fn(Builder $b) => $b->where('title', 'like', $like));
+            });
+        }
+
+        return $query;
+    }
+
     /* ---------- Helper ---------- */
 
     public function isOverdue(): bool

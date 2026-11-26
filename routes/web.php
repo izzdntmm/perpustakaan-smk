@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
+use App\Http\Controllers\Admin\LoanController as AdminLoanController;
+use App\Http\Controllers\Admin\ReturnController;
 
 /* ---------- Publik ---------- */
 
@@ -51,7 +53,17 @@ Route::prefix('admin')->name('admin.')->middleware('no.store')->group(function (
             ->parameters(['buku' => 'book'])
             ->except('show');
 
-        // Part 15 sampai 17 menambah route di sini:
-        // admin.loans.*, admin.returns.*, admin.reports.*
+        // Sirkulasi peminjaman
+        Route::get('peminjaman', [AdminLoanController::class, 'index'])->name('loans.index');
+        Route::get('peminjaman/langsung', [AdminLoanController::class, 'create'])->name('loans.create');
+        Route::post('peminjaman/langsung', [AdminLoanController::class, 'store'])->name('loans.store');
+        Route::patch('peminjaman/{loan}/konfirmasi', [AdminLoanController::class, 'confirm'])->name('loans.confirm');
+        Route::patch('peminjaman/{loan}/batal', [AdminLoanController::class, 'cancel'])->name('loans.cancel');
+
+        // Pengembalian
+        Route::get('pengembalian', [ReturnController::class, 'index'])->name('returns.index');
+        Route::patch('pengembalian/{loan}', [ReturnController::class, 'update'])->name('returns.update');
+
+        // Part 16 dan 17 menambah route di sini: admin.reports.*
     });
 });
