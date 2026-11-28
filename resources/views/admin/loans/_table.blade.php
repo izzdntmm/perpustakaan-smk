@@ -4,7 +4,7 @@
 <div class="overflow-x-auto p-2 sm:p-3">
     <table class="table">
         <thead>
-            <tr class="text-xs uppercase tracking-wider text-base-content/60">
+            <tr class="text-xs uppercase tracking-wider text-base-content/70">
                 <th>Peminjam</th>
                 <th>Buku</th>
                 <th>Tanggal</th>
@@ -20,19 +20,19 @@
                 <tr @class(['bg-error/5' => $late])>
                     <td @class(['border-l-4', 'border-error' => $late, 'border-transparent' => ! $late])>
                         <p class="font-semibold text-neutral">{{ $loan->borrower_name }}</p>
-                        <p class="text-xs text-base-content/60">{{ $loan->borrower_class }} &middot; {{ $loan->code() }}</p>
+                        <p class="text-xs text-base-content/70">{{ $loan->borrower_class }} &middot; {{ $loan->code() }}</p>
                     </td>
 
                     <td>
                         <p class="line-clamp-2 max-w-56 text-neutral">{{ $loan->book->title }}</p>
                         @if ($loan->book->shelf_location)
-                            <p class="text-xs text-base-content/60">Rak {{ $loan->book->shelf_location }}</p>
+                            <p class="text-xs text-base-content/70">Rak {{ $loan->book->shelf_location }}</p>
                         @endif
                     </td>
 
                     <td class="whitespace-nowrap text-sm">
                         {{ $loan->loan_date->translatedFormat('d M Y') }}
-                        <p class="text-xs text-base-content/60">{{ $loan->source->label() }}</p>
+                        <p class="text-xs text-base-content/70">{{ $loan->source->label() }}</p>
                     </td>
 
                     <td @class(['whitespace-nowrap text-sm', 'font-semibold text-error' => $late])>
@@ -42,7 +42,7 @@
                     <td>
                         <x-badge.loan-status :loan="$loan" />
                         @if ($loan->returned_at)
-                            <p class="mt-1 text-xs text-base-content/60">{{ $loan->returned_at->translatedFormat('d M Y, H:i') }}</p>
+                            <p class="mt-1 text-xs text-base-content/70">{{ $loan->returned_at->translatedFormat('d M Y, H:i') }}</p>
                         @endif
                     </td>
 

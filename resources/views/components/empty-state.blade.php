@@ -9,7 +9,7 @@
     <h3 class="text-lg font-semibold">{{ $title }}</h3>
 
     @if ($message)
-        <p class="max-w-md text-sm text-base-content/60">{{ $message }}</p>
+        <p class="max-w-md text-sm text-base-content/70">{{ $message }}</p>
     @endif
 
     {{ $slot }}

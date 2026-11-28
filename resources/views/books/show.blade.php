@@ -25,7 +25,7 @@
     <x-container class="py-8 lg:py-12">
 
         {{-- Breadcrumb --}}
-        <nav class="mb-6 text-sm text-base-content/60" aria-label="Breadcrumb">
+        <nav class="mb-6 text-sm text-base-content/70" aria-label="Breadcrumb">
             <ol class="flex flex-wrap items-center gap-2">
                 <li><a href="{{ route('home') }}" class="hover:text-primary">Beranda</a></li>
                 <li aria-hidden="true">/</li>

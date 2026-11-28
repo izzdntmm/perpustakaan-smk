@@ -19,10 +19,15 @@
 <html lang="id" data-theme="perpus">
 
 <head>
-    @include('partials.head', ['title' => $title . ' - Admin'])
+    @include('partials.head', ['title' => $title . ' - Admin', 'noindex' => true])
 </head>
 
 <body class="bg-base-100 text-base-content antialiased">
+
+    <a href="#konten"
+        class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-content">
+        Lewati ke konten
+    </a>
 
     <div class="drawer lg:drawer-open">
         <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
@@ -37,7 +42,7 @@
                         @svg('heroicon-o-bars-3', 'size-6')
                     </label>
                     <div>
-                        <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-base-content/60">
+                        <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-base-content/70">
                             Administrator</p>
                         <h1 class="text-xl font-bold text-neutral sm:text-2xl">{{ $title }}</h1>
                     </div>
@@ -49,12 +54,12 @@
                     </div>
                     <div class="hidden leading-tight sm:block">
                         <p class="text-sm font-semibold text-neutral">{{ $userName }}</p>
-                        <p class="text-xs text-base-content/60">Administrator</p>
+                        <p class="text-xs text-base-content/70">Administrator</p>
                     </div>
                 </div>
             </header>
 
-            <main class="flex-1 p-4 sm:p-8">
+            <main id="konten" tabindex="-1" class="flex-1 p-4 outline-none sm:p-8">
                 <x-alert />
                 {{ $slot }}
             </main>

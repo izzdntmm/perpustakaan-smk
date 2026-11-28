@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="perpus">
 <head>
-    @include('partials.head', ['title' => 'Login Admin'])
+    @include('partials.head', ['title' => 'Login Admin', 'noindex' => true])
 </head>
 <body class="min-h-dvh bg-base-200 text-base-content antialiased">
 
@@ -53,7 +53,7 @@
                         <input id="password" type="password" name="password"
                                required maxlength="255" autocomplete="current-password"
                                placeholder="Masukkan password" class="grow">
-                        <button type="button" id="toggle-password" class="text-base-content/60 hover:text-primary"
+                        <button type="button" id="toggle-password" class="text-base-content/70 hover:text-primary"
                                 aria-label="Tampilkan password">
                             <span data-show>@svg('heroicon-o-eye', 'size-5')</span>
                             <span data-hide hidden>@svg('heroicon-o-eye-slash', 'size-5')</span>

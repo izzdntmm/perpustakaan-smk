@@ -16,7 +16,7 @@
     <div class="flex flex-1 flex-col p-4">
         <p class="truncate text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral">{{ $book->category?->name }}</p>
         <h3 class="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug text-neutral sm:text-base">{{ $book->title }}</h3>
-        <p class="mt-0.5 line-clamp-1 text-sm text-base-content/60">{{ $book->author }}</p>
+        <p class="mt-0.5 line-clamp-1 text-sm text-base-content/70">{{ $book->author }}</p>
 
         <div class="mt-auto pt-4">
             <div class="flex items-center justify-between border-t border-base-300 pt-3 text-sm">

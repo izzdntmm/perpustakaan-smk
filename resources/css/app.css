@@ -66,3 +66,31 @@
         letter-spacing: -0.02em;
     }
 }
+
+/* ===== Polesan UI (Part 18) ===== */
+
+/* iOS Safari memperbesar halaman otomatis jika font kolom isian kurang dari 16px */
+@media (max-width: 639px) {
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']),
+    select,
+    textarea {
+        font-size: 1rem;
+    }
+}
+
+/* Fokus keyboard yang jelas di semua tautan dan tombol */
+:where(a, button, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Hormati pengguna yang meminta animasi dikurangi */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *, ::before, ::after {
+        transition-duration: 0.01ms !important;
+    }
+}

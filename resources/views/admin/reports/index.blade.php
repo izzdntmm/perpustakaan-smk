@@ -146,7 +146,7 @@
                                 <span class="grid size-7 shrink-0 place-items-center rounded-full bg-primary/10 text-sm font-bold text-primary">{{ $i + 1 }}</span>
                                 <div class="min-w-0 flex-1">
                                     <p class="truncate font-medium text-neutral">{{ $top->title }}</p>
-                                    <p class="truncate text-xs text-base-content/60">{{ $top->author }}</p>
+                                    <p class="truncate text-xs text-base-content/70">{{ $top->author }}</p>
                                 </div>
                                 <span class="shrink-0 text-sm font-semibold text-neutral">{{ $top->total }}x</span>
                             </li>
@@ -179,7 +179,7 @@
                 <div class="overflow-x-auto p-2 sm:p-3">
                     <table class="table">
                         <thead>
-                            <tr class="text-xs uppercase tracking-wider text-base-content/60">
+                            <tr class="text-xs uppercase tracking-wider text-base-content/70">
                                 <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Peminjam</th>
@@ -193,11 +193,11 @@
                         <tbody>
                             @foreach ($rows as $i => $loan)
                                 <tr @class(['bg-error/5' => $loan->isOverdue()])>
-                                    <td class="text-base-content/60">{{ $i + 1 }}</td>
+                                    <td class="text-base-content/70">{{ $i + 1 }}</td>
                                     <td class="whitespace-nowrap text-sm">{{ $loan->loan_date->translatedFormat('d M Y') }}</td>
                                     <td>
                                         <p class="font-semibold text-neutral">{{ $loan->borrower_name }}</p>
-                                        <p class="text-xs text-base-content/60">{{ $loan->borrower_class }} &middot; {{ $loan->code() }}</p>
+                                        <p class="text-xs text-base-content/70">{{ $loan->borrower_class }} &middot; {{ $loan->code() }}</p>
                                     </td>
                                     <td><p class="line-clamp-2 max-w-56 text-neutral">{{ $loan->book->title }}</p></td>
                                     <td class="whitespace-nowrap text-sm">{{ $loan->due_date?->translatedFormat('d M Y') ?? '-' }}</td>
@@ -219,7 +219,7 @@
                 <div class="overflow-x-auto p-2 sm:p-3">
                     <table class="table">
                         <thead>
-                            <tr class="text-xs uppercase tracking-wider text-base-content/60">
+                            <tr class="text-xs uppercase tracking-wider text-base-content/70">
                                 <th>No</th>
                                 <th>Buku</th>
                                 <th>Kategori</th>
@@ -233,10 +233,10 @@
                         <tbody>
                             @foreach ($rows as $i => $book)
                                 <tr>
-                                    <td class="text-base-content/60">{{ $i + 1 }}</td>
+                                    <td class="text-base-content/70">{{ $i + 1 }}</td>
                                     <td>
                                         <p class="line-clamp-2 max-w-64 font-semibold text-neutral">{{ $book->title }}</p>
-                                        <p class="text-xs text-base-content/60">{{ $book->author }}{{ $book->year_published ? ' · '.$book->year_published : '' }}</p>
+                                        <p class="text-xs text-base-content/70">{{ $book->author }}{{ $book->year_published ? ' · '.$book->year_published : '' }}</p>
                                     </td>
                                     <td class="whitespace-nowrap">{{ $book->category->name }}</td>
                                     <td><x-badge.book-type :book="$book" /></td>

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="perpus">
 <head>
-    @include('partials.head', ['title' => $title.' - '.$subtitle])
+    @include('partials.head', ['title' => $title.' - '.$subtitle, 'noindex' => true])
     <style>
         @page { size: A4 {{ $isLoans ? 'landscape' : 'portrait' }}; margin: 12mm; }
         @media print {

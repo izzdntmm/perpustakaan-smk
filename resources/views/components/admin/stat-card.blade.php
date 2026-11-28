@@ -32,6 +32,6 @@
     <p class="mt-1 font-heading text-3xl font-bold text-neutral">{{ number_format((int) $value, 0, ',', '.') }}</p>
 
     @if ($caption)
-        <p class="mt-2 text-xs text-base-content/60">{{ $caption }}</p>
+        <p class="mt-2 text-xs text-base-content/70">{{ $caption }}</p>
     @endif
 </{{ $tag }}>

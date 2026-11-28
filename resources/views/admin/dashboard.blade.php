@@ -14,7 +14,7 @@
 
     {{-- Sapaan --}}
     <section>
-        <p class="text-xs font-medium uppercase tracking-[0.18em] text-base-content/60">Selamat datang</p>
+        <p class="text-xs font-medium uppercase tracking-[0.18em] text-base-content/70">Selamat datang</p>
         <h2 class="mt-2 text-3xl font-semibold text-neutral sm:text-4xl">Halo, {{ auth()->user()->name }}</h2>
         <p class="mt-2 text-base-content/70">Berikut ringkasan aktivitas perpustakaan hari ini.</p>
     </section>
@@ -55,12 +55,12 @@
                 </div>
 
                 @if ($recentLoans->isEmpty())
-                    <p class="px-6 pb-6 text-sm text-base-content/60">Belum ada pengajuan peminjaman.</p>
+                    <p class="px-6 pb-6 text-sm text-base-content/70">Belum ada pengajuan peminjaman.</p>
                 @else
                     <div class="overflow-x-auto px-3 pb-3 sm:px-4">
                         <table class="table">
                             <thead>
-                                <tr class="text-xs uppercase tracking-wider text-base-content/60">
+                                <tr class="text-xs uppercase tracking-wider text-base-content/70">
                                     <th>Peminjam</th>
                                     <th>Buku</th>
                                     <th>Tanggal</th>
@@ -72,7 +72,7 @@
                                     <tr>
                                         <td>
                                             <p class="font-semibold text-neutral">{{ $loan->borrower_name }}</p>
-                                            <p class="text-xs text-base-content/60">{{ $loan->borrower_class }}</p>
+                                            <p class="text-xs text-base-content/70">{{ $loan->borrower_class }}</p>
                                         </td>
                                         <td class="max-w-48 truncate">{{ $loan->book->title }}</td>
                                         <td class="whitespace-nowrap">{{ $loan->loan_date->translatedFormat('d M Y') }}</td>
@@ -107,7 +107,7 @@
                     <div class="overflow-x-auto px-3 pb-3 sm:px-4">
                         <table class="table">
                             <thead>
-                                <tr class="text-xs uppercase tracking-wider text-base-content/60">
+                                <tr class="text-xs uppercase tracking-wider text-base-content/70">
                                     <th>Peminjam</th>
                                     <th>Buku</th>
                                     <th>Jatuh tempo</th>
@@ -119,7 +119,7 @@
                                     <tr class="bg-error/5">
                                         <td>
                                             <p class="font-semibold text-neutral">{{ $loan->borrower_name }}</p>
-                                            <p class="text-xs text-base-content/60">{{ $loan->borrower_class }}</p>
+                                            <p class="text-xs text-base-content/70">{{ $loan->borrower_class }}</p>
                                         </td>
                                         <td class="max-w-48 truncate">{{ $loan->book->title }}</td>
                                         <td class="whitespace-nowrap">{{ $loan->due_date->translatedFormat('d M Y') }}</td>
@@ -131,7 +131,7 @@
                     </div>
 
                     @if ($stats['overdue'] > $overdueLoans->count())
-                        <p class="px-6 pb-5 text-xs text-base-content/60">
+                        <p class="px-6 pb-5 text-xs text-base-content/70">
                             Menampilkan {{ $overdueLoans->count() }} dari {{ $stats['overdue'] }} peminjaman terlambat.
                             <a href="{{ route('admin.returns.index', ['tab' => 'overdue']) }}" class="link link-primary">Lihat
                                 semua</a>
@@ -147,7 +147,7 @@
             <p class="mt-1 text-sm text-base-content/70">Ringkasan sirkulasi</p>
 
             @if ($activities->isEmpty())
-                <p class="mt-6 text-sm text-base-content/60">Belum ada aktivitas.</p>
+                <p class="mt-6 text-sm text-base-content/70">Belum ada aktivitas.</p>
             @else
                 <ul class="mt-4 divide-y divide-base-300">
                     @foreach ($activities as $activity)
@@ -158,7 +158,7 @@
                             </span>
                             <div class="min-w-0">
                                 <p class="text-sm font-semibold text-neutral">{{ $activity['title'] }}</p>
-                                <p class="truncate text-xs text-base-content/60">
+                                <p class="truncate text-xs text-base-content/70">
                                     {{ $activity['detail'] }} &middot; {{ $activity['at']->diffForHumans() }}
                                 </p>
                             </div>

@@ -71,3 +71,9 @@ Route::prefix('admin')->name('admin.')->middleware('no.store')->group(function (
         Route::get('laporan/ekspor', [ReportController::class, 'export'])->name('reports.export');
     });
 });
+
+// SEMENTARA: hapus setelah uji Part 18
+if (app()->environment('local')) {
+    Route::get('/_uji/{code}', fn (int $code) => abort($code))
+        ->whereIn('code', [403, 404, 429, 500, 503]);
+}

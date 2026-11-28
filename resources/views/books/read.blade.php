@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="perpus">
 <head>
-    @include('partials.head', ['title' => 'Baca: '.$book->title])
+    @include('partials.head', ['title' => 'Baca: '.$book->title, 'noindex' => true])
     <style>
         @media print { body { display: none !important; } }
     </style>
@@ -33,7 +33,7 @@
                         <input id="pdf-page-input" type="number" min="1" value="1" inputmode="numeric"
                                aria-label="Lompat ke halaman"
                                class="w-12 bg-transparent text-center font-medium outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none">
-                        <span class="whitespace-nowrap text-base-content/60">/ <span id="pdf-total">-</span></span>
+                        <span class="whitespace-nowrap text-base-content/70">/ <span id="pdf-total">-</span></span>
                     </form>
 
                     <button id="pdf-next" type="button" class="btn btn-sm join-item" aria-label="Halaman berikutnya" disabled>
@@ -61,7 +61,7 @@
         <div id="pdf-loading" class="absolute inset-0 grid place-items-center">
             <div class="text-center">
                 <span class="loading loading-spinner loading-lg text-primary"></span>
-                <p class="mt-3 text-sm text-base-content/60">Memuat buku...</p>
+                <p class="mt-3 text-sm text-base-content/70">Memuat buku...</p>
             </div>
         </div>
 

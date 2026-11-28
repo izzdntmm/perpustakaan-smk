@@ -12,16 +12,17 @@
         ['03', 'Ambil di pustakawan', 'Datang ke perpustakaan untuk konfirmasi dan mengambil buku.'],
     ];
 
-    $fmt = fn ($n) => number_format($n, 0, ',', '.');
+    $fmt = fn($n) => number_format($n, 0, ',', '.');
 @endphp
 
 <x-layouts.public title="Beranda">
 
     {{-- ===== HERO ===== --}}
-    <section>
+    <section class="overflow-x-clip">
         <x-container class="grid items-center gap-12 py-12 lg:grid-cols-2 lg:py-20">
             <div>
-                <p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                <p
+                    class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                     @svg('heroicon-o-book-open', 'size-5')
                     Ruang Literasi Sekolah
                 </p>
@@ -31,7 +32,8 @@
                 </h1>
 
                 <p class="mt-6 max-w-lg text-lg leading-relaxed text-base-content/80">
-                    Perpustakaan SMK Roudlotul Mubtadiin. Temukan buku pelajaran, referensi kejuruan, dan bacaan favoritmu dalam satu tempat.
+                    Perpustakaan SMK Roudlotul Mubtadiin. Temukan buku pelajaran, referensi kejuruan, dan bacaan
+                    favoritmu dalam satu tempat.
                 </p>
 
                 <div class="mt-8 flex flex-wrap gap-3">
@@ -60,22 +62,29 @@
                 <div class="absolute inset-[6%] rounded-full border border-primary/15"></div>
                 <div class="absolute inset-[16%] rounded-full border border-primary/15"></div>
 
-                <div class="absolute left-[24%] top-[12%] flex aspect-[3/4] w-[52%] rotate-[6deg] flex-col justify-between rounded-lg border border-base-300 bg-base-100 p-4 shadow-2xl shadow-neutral/10 sm:p-5">
-                    <span class="text-[9px] font-semibold uppercase tracking-[0.2em] text-base-content/40 sm:text-[10px]">Knowledge</span>
-                    <span class="font-heading text-xl font-extrabold leading-tight text-base-content/35 sm:text-3xl">THE<br>WORLD OF<br>IDEAS</span>
-                    <span class="text-[8px] uppercase tracking-[0.2em] text-base-content/40 sm:text-[9px]">Read &middot; Learn &middot; Grow</span>
+                <div
+                    class="absolute left-[24%] top-[12%] flex aspect-[3/4] w-[52%] rotate-[6deg] flex-col justify-between rounded-lg border border-base-300 bg-base-100 p-4 shadow-2xl shadow-neutral/10 sm:p-5">
+                    <span
+                        class="text-[9px] font-semibold uppercase tracking-[0.2em] text-base-content/40 sm:text-[10px]">Knowledge</span>
+                    <span
+                        class="font-heading text-xl font-extrabold leading-tight text-base-content/35 sm:text-3xl">THE<br>WORLD
+                        OF<br>IDEAS</span>
+                    <span class="text-[8px] uppercase tracking-[0.2em] text-base-content/40 sm:text-[9px]">Read &middot;
+                        Learn &middot; Grow</span>
                 </div>
 
-                <div class="absolute right-0 top-[14%] rounded-xl border border-base-300 bg-base-100 px-4 py-3 shadow-lg">
+                <div
+                    class="absolute right-0 top-[14%] rounded-xl border border-base-300 bg-base-100 px-4 py-3 shadow-lg">
                     <p class="text-sm font-semibold text-neutral">Literasi tanpa batas</p>
-                    <p class="text-xs text-base-content/60">Mulai dari satu halaman</p>
+                    <p class="text-xs text-base-content/70">Mulai dari satu halaman</p>
                 </div>
 
-                <div class="absolute bottom-[16%] left-0 flex items-center gap-3 rounded-xl border border-base-300 bg-base-100 px-4 py-3 shadow-lg">
+                <div
+                    class="absolute bottom-[16%] left-0 flex items-center gap-3 rounded-xl border border-base-300 bg-base-100 px-4 py-3 shadow-lg">
                     @svg('heroicon-o-academic-cap', 'size-6 text-primary')
                     <div>
                         <p class="text-sm font-semibold text-neutral">Belajar lebih mudah</p>
-                        <p class="text-xs text-base-content/60">Untuk semua siswa</p>
+                        <p class="text-xs text-base-content/70">Untuk semua siswa</p>
                     </div>
                 </div>
             </div>
@@ -85,18 +94,15 @@
     {{-- ===== KATEGORI ===== --}}
     <section class="py-12 lg:py-16">
         <x-container>
-            <x-section-heading
-                eyebrow="Pilih koleksi"
-                title="Jelajahi perpustakaan"
-                subtitle="Temukan koleksi sesuai kebutuhan belajarmu."
-                :url="route('catalog')" />
+            <x-section-heading eyebrow="Pilih koleksi" title="Jelajahi perpustakaan"
+                subtitle="Temukan koleksi sesuai kebutuhan belajarmu." :url="route('catalog')" />
 
             <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach ($categories as $c)
                     @php [$title, $desc, $icon, $color] = $meta[$c->slug] ?? [$c->name, '', 'book-open', 'text-primary']; @endphp
                     <a href="{{ route('catalog', ['category' => $c->slug]) }}"
-                       class="group flex flex-col rounded-box border border-base-300 bg-base-100 p-6 transition hover:border-primary/40 hover:shadow-md">
-                        @svg('heroicon-o-'.$icon, 'size-8 '.$color)
+                        class="group flex flex-col rounded-box border border-base-300 bg-base-100 p-6 transition hover:border-primary/40 hover:shadow-md">
+                        @svg('heroicon-o-' . $icon, 'size-8 ' . $color)
                         <h3 class="mt-6 text-xl font-semibold text-neutral">{{ $title }}</h3>
                         <p class="mt-2 text-sm leading-relaxed text-base-content/70">{{ $desc }}</p>
                         <div class="mt-5 flex items-center justify-between text-sm text-base-content/80">
@@ -113,11 +119,8 @@
     @if ($featured->isNotEmpty())
         <section class="pb-12 lg:pb-16">
             <x-container>
-                <x-section-heading
-                    eyebrow="Pilihan pustakawan"
-                    title="Buku rekomendasi"
-                    subtitle="Beberapa bacaan yang bisa kamu mulai hari ini."
-                    :url="route('catalog')"
+                <x-section-heading eyebrow="Pilihan pustakawan" title="Buku rekomendasi"
+                    subtitle="Beberapa bacaan yang bisa kamu mulai hari ini." :url="route('catalog')"
                     urlLabel="Lihat katalog" />
 
                 <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
@@ -136,14 +139,16 @@
             <div class="relative mx-auto w-full max-w-sm pb-6" aria-hidden="true">
                 <div class="-rotate-6 rounded-2xl border border-base-300 bg-base-100 p-8 shadow-xl">
                     <p class="text-[10px] uppercase tracking-[0.2em] text-base-content/50">Chapter 01</p>
-                    <p class="mt-6 font-heading text-3xl font-medium leading-tight text-neutral">Knowledge<br>is a journey.</p>
+                    <p class="mt-6 font-heading text-3xl font-medium leading-tight text-neutral">Knowledge<br>is a
+                        journey.</p>
                     <div class="h-24"></div>
                 </div>
-                <div class="absolute bottom-0 right-0 flex items-center gap-3 rounded-xl border border-base-300 bg-base-100 px-4 py-3 shadow-lg">
+                <div
+                    class="absolute bottom-0 right-0 flex items-center gap-3 rounded-xl border border-base-300 bg-base-100 px-4 py-3 shadow-lg">
                     @svg('heroicon-o-device-tablet', 'size-6 text-primary')
                     <div>
                         <p class="text-sm font-semibold text-neutral">Digital Reader</p>
-                        <p class="text-xs text-base-content/60">Baca langsung di browser</p>
+                        <p class="text-xs text-base-content/70">Baca langsung di browser</p>
                     </div>
                 </div>
             </div>
@@ -152,7 +157,8 @@
                 <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary">E-Library</p>
                 <h2 class="mt-2 text-3xl font-semibold text-neutral sm:text-5xl">Baca buku digital<br>di mana saja.</h2>
                 <p class="mt-4 max-w-md text-base-content/80">
-                    Tak perlu membawa buku tebal. Buka koleksi digital dan baca langsung melalui browser di HP maupun komputer.
+                    Tak perlu membawa buku tebal. Buka koleksi digital dan baca langsung melalui browser di HP maupun
+                    komputer.
                 </p>
 
                 <ul class="mt-6 space-y-3">
@@ -164,7 +170,8 @@
                     @endforeach
                 </ul>
 
-                <a href="{{ route('catalog', ['type' => 'digital']) }}" class="btn btn-primary btn-lg mt-8">Buka Buku Digital</a>
+                <a href="{{ route('catalog', ['type' => 'digital']) }}" class="btn btn-primary btn-lg mt-8">Buka Buku
+                    Digital</a>
             </div>
         </x-container>
     </section>
@@ -172,9 +179,7 @@
     {{-- ===== CARA MEMINJAM ===== --}}
     <section id="cara" class="scroll-mt-24 py-12 lg:py-20">
         <x-container>
-            <x-section-heading
-                eyebrow="Mudah & praktis"
-                title="Bagaimana cara meminjam?"
+            <x-section-heading eyebrow="Mudah & praktis" title="Bagaimana cara meminjam?"
                 subtitle="Hanya beberapa langkah untuk meminjam koleksi buku fisik." />
 
             <div class="mt-8 grid gap-4 md:grid-cols-3">
@@ -187,12 +192,15 @@
                 @endforeach
             </div>
 
-            <div class="mt-10 flex flex-col items-start justify-between gap-6 rounded-3xl bg-neutral p-8 text-neutral-content sm:flex-row sm:items-center sm:p-10">
+            <div
+                class="mt-10 flex flex-col items-start justify-between gap-6 rounded-3xl bg-neutral p-8 text-neutral-content sm:flex-row sm:items-center sm:p-10">
                 <div>
-                    <h2 class="text-2xl font-semibold text-neutral-content sm:text-3xl">Siap menemukan bacaan berikutnya?</h2>
+                    <h2 class="text-2xl font-semibold text-neutral-content sm:text-3xl">Siap menemukan bacaan
+                        berikutnya?</h2>
                     <p class="mt-2 opacity-80">Mulai jelajahi koleksi perpustakaan sekarang.</p>
                 </div>
-                <a href="{{ route('catalog') }}" class="btn btn-lg shrink-0 border-0 bg-base-100 text-neutral hover:bg-base-200">Cari buku</a>
+                <a href="{{ route('catalog') }}"
+                    class="btn btn-lg shrink-0 border-0 bg-base-100 text-neutral hover:bg-base-200">Cari buku</a>
             </div>
         </x-container>
     </section>
@@ -201,9 +209,11 @@
     <section id="tentang" class="scroll-mt-24 border-t border-base-300 py-12 lg:py-20">
         <x-container>
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Tentang perpustakaan</p>
-            <h2 class="mt-2 max-w-2xl text-3xl font-semibold text-neutral sm:text-5xl">Tempat tumbuhnya rasa ingin tahu.</h2>
+            <h2 class="mt-2 max-w-2xl text-3xl font-semibold text-neutral sm:text-5xl">Tempat tumbuhnya rasa ingin tahu.
+            </h2>
             <p class="mt-5 max-w-3xl text-lg leading-relaxed text-base-content/80">
-                Perpustakaan SMK Roudlotul Mubtadiin hadir untuk mendukung kegiatan belajar, memperluas wawasan, dan menumbuhkan budaya literasi di lingkungan sekolah melalui koleksi buku fisik dan digital.
+                Perpustakaan SMK Roudlotul Mubtadiin hadir untuk mendukung kegiatan belajar, memperluas wawasan, dan
+                menumbuhkan budaya literasi di lingkungan sekolah melalui koleksi buku fisik dan digital.
             </p>
         </x-container>
     </section>

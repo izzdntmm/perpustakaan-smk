@@ -53,7 +53,7 @@
             <div class="overflow-x-auto p-2 sm:p-3">
                 <table class="table">
                     <thead>
-                        <tr class="text-xs uppercase tracking-wider text-base-content/60">
+                        <tr class="text-xs uppercase tracking-wider text-base-content/70">
                             <th>Buku</th>
                             <th>Kategori</th>
                             <th>Jenis</th>
@@ -79,7 +79,7 @@
                                         <div class="min-w-0">
                                             <a href="{{ route('books.show', $book) }}" target="_blank" rel="noopener"
                                                class="line-clamp-2 font-semibold text-neutral hover:text-primary">{{ $book->title }}</a>
-                                            <p class="text-xs text-base-content/60">{{ $book->author }}</p>
+                                            <p class="text-xs text-base-content/70">{{ $book->author }}</p>
                                         </div>
                                     </div>
                                 </td>
@@ -95,7 +95,7 @@
                                             'text-error' => $book->stock_available === 0,
                                             'text-neutral' => $book->stock_available > 0,
                                         ])>{{ $book->stock_available }}</span>
-                                        <span class="text-base-content/60">/ {{ $book->stock_total }}</span>
+                                        <span class="text-base-content/70">/ {{ $book->stock_total }}</span>
                                     @elseif ($book->hasPdf())
                                         <span class="inline-flex items-center gap-1 text-accent">
                                             @svg('heroicon-o-check-circle', 'size-4') PDF ada
