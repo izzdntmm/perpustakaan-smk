@@ -7,12 +7,19 @@
         'returned' => 'check-circle',
         default => 'x-circle',
     };
+
+    $dueToday = $loan->status === \App\Enums\LoanStatus::Borrowed && $loan->due_date?->isToday();
 @endphp
 
 @if ($loan->isOverdue())
     <span {{ $attributes->class('badge badge-error badge-soft gap-1') }}>
         @svg('heroicon-s-exclamation-triangle', 'size-3.5')
         Terlambat {{ $loan->daysOverdue() }} hari
+    </span>
+@elseif ($dueToday)
+    <span {{ $attributes->class('badge badge-warning badge-soft gap-1') }}>
+        @svg('heroicon-s-clock', 'size-3.5')
+        Jatuh tempo hari ini
     </span>
 @else
     <span {{ $attributes->class(['badge badge-soft gap-1', $loan->status->badgeClass()]) }}>

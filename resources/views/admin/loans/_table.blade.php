@@ -1,4 +1,5 @@
-@props(['loans', 'allowReturn' => false])
+{{-- Variabel: $loans, $allowReturn (opsional) --}}
+@php $allowReturn = $allowReturn ?? false; @endphp
 
 <div class="overflow-x-auto p-2 sm:p-3">
     <table class="table">
@@ -14,8 +15,10 @@
         </thead>
         <tbody>
             @foreach ($loans as $loan)
-                <tr>
-                    <td>
+                @php $late = $loan->isOverdue(); @endphp
+
+                <tr @class(['bg-error/5' => $late])>
+                    <td @class(['border-l-4', 'border-error' => $late, 'border-transparent' => ! $late])>
                         <p class="font-semibold text-neutral">{{ $loan->borrower_name }}</p>
                         <p class="text-xs text-base-content/60">{{ $loan->borrower_class }} &middot; {{ $loan->code() }}</p>
                     </td>
@@ -32,7 +35,7 @@
                         <p class="text-xs text-base-content/60">{{ $loan->source->label() }}</p>
                     </td>
 
-                    <td class="whitespace-nowrap text-sm">
+                    <td @class(['whitespace-nowrap text-sm', 'font-semibold text-error' => $late])>
                         {{ $loan->due_date?->translatedFormat('d M Y') ?? '-' }}
                     </td>
 

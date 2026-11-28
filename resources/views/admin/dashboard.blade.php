@@ -21,20 +21,16 @@
 
     {{-- Kartu statistik --}}
     <section class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4" aria-label="Ringkasan statistik">
-        <x-admin.stat-card
-            icon="rectangle-stack" tone="primary"
-            label="Total judul buku" :value="$stats['titles']" caption="Koleksi aktif" />
+        <x-admin.stat-card icon="rectangle-stack" tone="primary" label="Total judul buku" :value="$stats['titles']"
+            caption="Koleksi aktif" />
 
-        <x-admin.stat-card
-            icon="archive-box" tone="accent"
-            label="Eksemplar fisik" :value="$stats['copies']" caption="Total stok tercatat" />
+        <x-admin.stat-card icon="archive-box" tone="accent" label="Eksemplar fisik" :value="$stats['copies']"
+            caption="Total stok tercatat" />
 
-        <x-admin.stat-card
-            icon="book-open" tone="secondary"
-            label="Sedang dipinjam" :value="$stats['borrowed']" caption="Transaksi aktif" />
+        <x-admin.stat-card icon="book-open" tone="secondary" label="Sedang dipinjam" :value="$stats['borrowed']"
+            caption="Transaksi aktif" />
 
-        <x-admin.stat-card
-            icon="clock" tone="error" href="#terlambat"
+        <x-admin.stat-card icon="clock" tone="error" :href="route('admin.returns.index', ['tab' => 'overdue'])"
             label="Terlambat" :value="$stats['overdue']" caption="Perlu tindak lanjut" />
     </section>
 
@@ -54,7 +50,8 @@
                         </div>
                         <p class="mt-1 text-sm text-base-content/70">Permintaan peminjaman buku</p>
                     </div>
-                    <a href="{{ $loansUrl }}" class="shrink-0 text-sm font-semibold text-neutral hover:text-primary">Lihat semua</a>
+                    <a href="{{ $loansUrl }}"
+                        class="shrink-0 text-sm font-semibold text-neutral hover:text-primary">Lihat semua</a>
                 </div>
 
                 @if ($recentLoans->isEmpty())
@@ -97,7 +94,8 @@
                             <span class="badge badge-soft badge-error">{{ $stats['overdue'] }} buku</span>
                         @endif
                     </div>
-                    <p class="mt-1 text-sm text-base-content/70">Sudah melewati batas pengembalian dan perlu ditindaklanjuti</p>
+                    <p class="mt-1 text-sm text-base-content/70">Sudah melewati batas pengembalian dan perlu
+                        ditindaklanjuti</p>
                 </div>
 
                 @if ($overdueLoans->isEmpty())
@@ -135,6 +133,8 @@
                     @if ($stats['overdue'] > $overdueLoans->count())
                         <p class="px-6 pb-5 text-xs text-base-content/60">
                             Menampilkan {{ $overdueLoans->count() }} dari {{ $stats['overdue'] }} peminjaman terlambat.
+                            <a href="{{ route('admin.returns.index', ['tab' => 'overdue']) }}" class="link link-primary">Lihat
+                                semua</a>
                         </p>
                     @endif
                 @endif
@@ -154,7 +154,7 @@
                         @php [$icon, $style] = $activityStyle[$activity['type']]; @endphp
                         <li class="flex items-start gap-3 py-3">
                             <span class="grid size-8 shrink-0 place-items-center rounded-lg {{ $style }}">
-                                @svg('heroicon-o-'.$icon, 'size-4')
+                                @svg('heroicon-o-' . $icon, 'size-4')
                             </span>
                             <div class="min-w-0">
                                 <p class="text-sm font-semibold text-neutral">{{ $activity['title'] }}</p>

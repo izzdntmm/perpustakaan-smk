@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\LoanController as AdminLoanController;
 use App\Http\Controllers\Admin\ReturnController;
+use App\Http\Controllers\Admin\ReportController;
 
 /* ---------- Publik ---------- */
 
@@ -64,6 +65,9 @@ Route::prefix('admin')->name('admin.')->middleware('no.store')->group(function (
         Route::get('pengembalian', [ReturnController::class, 'index'])->name('returns.index');
         Route::patch('pengembalian/{loan}', [ReturnController::class, 'update'])->name('returns.update');
 
-        // Part 16 dan 17 menambah route di sini: admin.reports.*
+                // Laporan
+        Route::get('laporan', [ReportController::class, 'index'])->name('reports.index');
+        Route::get('laporan/cetak', [ReportController::class, 'print'])->name('reports.print');
+        Route::get('laporan/ekspor', [ReportController::class, 'export'])->name('reports.export');
     });
 });

@@ -114,4 +114,27 @@ class Loan extends Model
     {
         return sprintf('PJ-%05d', $this->id);
     }
+
+    /**
+     * Jumlah hari terlambat.
+     * Dipinjam: dihitung sampai hari ini. Dikembalikan: sampai tanggal kembali.
+     */
+    public function lateDays(): int
+    {
+        if ($this->due_date === null) {
+            return 0;
+        }
+
+        $end = match ($this->status) {
+            LoanStatus::Returned => $this->returned_at?->copy()->startOfDay(),
+            LoanStatus::Borrowed => today(),
+            default => null,
+        };
+
+        if ($end === null || $end->lte($this->due_date)) {
+            return 0;
+        }
+
+        return (int) $this->due_date->diffInDays($end);
+    }
 }

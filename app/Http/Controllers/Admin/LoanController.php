@@ -23,7 +23,7 @@ class LoanController extends Controller
     {
         $q = Str::of($this->stringParam($request, 'q'))->squish()->limit(100, '')->toString();
 
-        $status = in_array($request->query('status'), ['pending', 'borrowed', 'all'], true)
+        $status = in_array($request->query('status'), ['pending', 'borrowed', 'overdue', 'all'], true)
             ? $request->query('status')
             : 'pending';
 
@@ -34,6 +34,8 @@ class LoanController extends Controller
             'pending' => $query->pending()->orderBy('created_at')->orderBy('id'),
             // Yang paling dekat/lewat jatuh tempo di atas
             'borrowed' => $query->borrowed()->orderBy('due_date')->orderBy('id'),
+            // Yang paling lama terlambat di atas
+            'overdue' => $query->overdue()->orderBy('due_date')->orderBy('id'),
             default => $query->orderByDesc('created_at')->orderByDesc('id'),
         };
 
@@ -44,6 +46,7 @@ class LoanController extends Controller
             'counts' => [
                 'pending' => Loan::pending()->count(),
                 'borrowed' => Loan::borrowed()->count(),
+                'overdue' => Loan::overdue()->count(),
                 'all' => Loan::count(),
             ],
         ]);
@@ -53,10 +56,10 @@ class LoanController extends Controller
     {
         // Hanya buku fisik yang masih punya eksemplar belum dipesan pengajuan lain
         $books = Book::where('type', BookType::Physical->value)
-            ->withCount(['loans as pending_count' => fn ($q) => $q->where('status', LoanStatus::Pending->value)])
+            ->withCount(['loans as pending_count' => fn($q) => $q->where('status', LoanStatus::Pending->value)])
             ->orderBy('title')
             ->get()
-            ->filter(fn (Book $b) => $b->stock_available - $b->pending_count > 0)
+            ->filter(fn(Book $b) => $b->stock_available - $b->pending_count > 0)
             ->values();
 
         return view('admin.loans.create', compact('books'));

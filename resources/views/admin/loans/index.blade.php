@@ -2,6 +2,7 @@
     $tabs = [
         'pending' => 'Menunggu pengambilan',
         'borrowed' => 'Sedang dipinjam',
+        'overdue' => 'Terlambat',
         'all' => 'Semua transaksi',
     ];
 
@@ -10,6 +11,7 @@
     $emptyMessages = [
         'pending' => 'Tidak ada pengajuan yang menunggu diambil.',
         'borrowed' => 'Tidak ada buku yang sedang dipinjam.',
+        'overdue' => 'Tidak ada peminjaman terlambat. Semua buku kembali tepat waktu.',
         'all' => 'Belum ada transaksi peminjaman.',
     ];
 @endphp
@@ -45,7 +47,8 @@
                 <span @class([
                     'badge badge-sm',
                     'badge-warning' => $key === 'pending' && $counts['pending'] > 0,
-                    'badge-ghost' => ! ($key === 'pending' && $counts['pending'] > 0),
+                    'badge-error' => $key === 'overdue' && $counts['overdue'] > 0,
+                    'badge-ghost' => ! (($key === 'pending' && $counts['pending'] > 0) || ($key === 'overdue' && $counts['overdue'] > 0)),
                 ])>{{ $counts[$key] }}</span>
             </a>
         @endforeach
